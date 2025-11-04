@@ -1,0 +1,144 @@
+---
+---
+
+<!-- Chatbot Icon -->
+<div id="chatbot-icon" class="fixed bottom-6 right-6 z-50">
+  <button class="w-16 h-16 bg-orange-600 hover:bg-orange-700 text-white rounded-full shadow-2xl hover:shadow-orange-500/25 transition-all duration-300 transform hover:scale-110 animate-pulse">
+    <svg class="w-8 h-8 mx-auto" fill="currentColor" viewBox="0 0 20 20">
+      <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+    </svg>
+  </button>
+</div>
+
+<!-- Chatbot Container -->
+<div id="chatbot-container" class="fixed bottom-24 right-6 w-96 max-w-[calc(100vw-3rem)] bg-white rounded-3xl shadow-2xl border border-gray-200 z-50 hidden transform transition-all duration-300 scale-95 opacity-0">
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-orange-600 to-orange-500 text-white p-6 rounded-t-3xl">
+    <div class="flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+          <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-bold">Asistente Kachris</h3>
+          <p class="text-sm text-white/80">En línea</p>
+        </div>
+      </div>
+      <button id="chatbot-close" class="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center hover:bg-white/30 transition-colors duration-200">
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Messages -->
+  <div id="chatbot-messages" class="h-80 overflow-y-auto p-4 space-y-4">
+    <div class="flex items-start space-x-3">
+      <div class="w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center flex-shrink-0">
+        <svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path>
+        </svg>
+      </div>
+      <div class="bg-gray-100 rounded-2xl rounded-tl-sm p-3 max-w-xs">
+        <p class="text-sm text-gray-800">¡Hola! Soy tu asistente virtual de Kachris Transport. ¿En qué puedo ayudarte hoy?</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="p-4 border-t border-gray-200">
+    <p class="text-sm text-gray-600 mb-3">Opciones rápidas:</p>
+    <div class="grid grid-cols-2 gap-2">
+      <button class="chatbot-option bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200" data-message="Solicitar cotización">
+        💰 Cotización
+      </button>
+      <button class="chatbot-option bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200" data-message="Consultar disponibilidad">
+        🚛 Disponibilidad
+      </button>
+      <button class="chatbot-option bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200" data-message="Información de servicios">
+        ℹ️ Servicios
+      </button>
+      <button class="chatbot-option bg-orange-50 hover:bg-orange-100 text-orange-700 px-3 py-2 rounded-xl text-sm font-medium transition-colors duration-200" data-message="Hablar con agente">
+        👤 Agente
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const chatbotIcon = document.getElementById('chatbot-icon');
+  const chatbotContainer = document.getElementById('chatbot-container');
+  const chatbotClose = document.getElementById('chatbot-close');
+  const chatbotMessages = document.getElementById('chatbot-messages');
+  const chatbotOptions = document.querySelectorAll('.chatbot-option');
+
+  // Toggle chatbot
+  function toggleChatbot() {
+    const isHidden = chatbotContainer.classList.contains('hidden');
+    
+    if (isHidden) {
+      chatbotContainer.classList.remove('hidden');
+      setTimeout(() => {
+        chatbotContainer.classList.remove('scale-95', 'opacity-0');
+        chatbotContainer.classList.add('scale-100', 'opacity-100');
+      }, 10);
+    } else {
+      chatbotContainer.classList.add('scale-95', 'opacity-0');
+      chatbotContainer.classList.remove('scale-100', 'opacity-100');
+      setTimeout(() => {
+        chatbotContainer.classList.add('hidden');
+      }, 300);
+    }
+  }
+
+  // Add message to chat
+  function addMessage(message, isUser = false) {
+    const messageDiv = document.createElement('div');
+    messageDiv.className = `flex items-start space-x-3 ${isUser ? 'flex-row-reverse space-x-reverse' : ''}`;
+    
+    messageDiv.innerHTML = `
+      <div class="w-8 h-8 ${isUser ? 'bg-orange-600' : 'bg-orange-100'} rounded-full flex items-center justify-center flex-shrink-0">
+        ${isUser ? 
+          '<svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>' :
+          '<svg class="w-4 h-4 text-orange-600" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10c0 3.866-3.582 7-8 7a8.841 8.841 0 01-4.083-.98L2 17l1.338-3.123C2.493 12.767 2 11.434 2 10c0-3.866 3.582-7 8-7s8 3.134 8 7zM7 9H5v2h2V9zm8 0h-2v2h2V9zM9 9h2v2H9V9z" clip-rule="evenodd"></path></svg>'
+        }
+      </div>
+      <div class="${isUser ? 'bg-orange-600 text-white' : 'bg-gray-100'} rounded-2xl ${isUser ? 'rounded-tr-sm' : 'rounded-tl-sm'} p-3 max-w-xs">
+        <p class="text-sm ${isUser ? 'text-white' : 'text-gray-800'}">${message}</p>
+      </div>
+    `;
+    
+    chatbotMessages.appendChild(messageDiv);
+    chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+  }
+
+  // Bot responses
+  function getBotResponse(message) {
+    const responses = {
+      'Solicitar cotización': 'Para solicitar una cotización, puedes usar nuestro formulario en la sección "Cotización" o proporcionarme los detalles de tu envío: origen, destino y tipo de carga.',
+      'Consultar disponibilidad': 'Tenemos disponibilidad inmediata en nuestras 3 unidades International 3600. ¿Para qué fecha necesitas el servicio?',
+      'Información de servicios': 'Ofrecemos transporte de: 🚛 Carga General (FCL), 📦 Carga Especial, ⚠️ Carga IMO. Cobertura en Lima y Callao con 7 zonas de servicio.',
+      'Hablar con agente': 'Te conectaré con uno de nuestros agentes. Puedes llamarnos al +51 922 408 320 o escribir a administracion@kachris.com'
+    };
+    
+    return responses[message] || 'Gracias por tu consulta. Un agente se pondrá en contacto contigo pronto. También puedes llamarnos al +51 922 408 320.';
+  }
+
+  // Event listeners
+  chatbotIcon.addEventListener('click', toggleChatbot);
+  chatbotClose.addEventListener('click', toggleChatbot);
+
+  chatbotOptions.forEach(option => {
+    option.addEventListener('click', () => {
+      const message = option.dataset.message;
+      addMessage(message, true);
+      
+      setTimeout(() => {
+        addMessage(getBotResponse(message));
+      }, 1000);
+    });
+  });
+</script>
